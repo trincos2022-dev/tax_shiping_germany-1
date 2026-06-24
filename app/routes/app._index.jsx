@@ -9,7 +9,7 @@ export const loader = async ({ request }) => {
 
   return null;
 };
-
+//test
 export const action = async ({ request }) => {
   const { admin } = await authenticate.admin(request);
   const color = ["Red", "Orange", "Yellow", "Green"][
