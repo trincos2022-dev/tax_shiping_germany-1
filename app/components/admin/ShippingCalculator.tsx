@@ -69,22 +69,21 @@ export default function ShippingCalculatorPanel({ defaultCarrierCharge, defaultT
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!sku.trim()){
-    window.alert("Please enter SKU"); 
+  
       return;
     } 
 
-    
-  console.log("Button clicked ✅", sku);
+  
 
     setIsLoading(true);
     setResult(null);
 
     try {
       const formData = new FormData();
-      window.alert("Button clicked")
+     
       formData.append("sku", sku.trim());
 
-      const response = await fetch("/app.calculate-shipping", {
+      const response = await fetch("/app/calculate-shipping", {
         method: "POST",
         body: formData,
         credentials: "include",
