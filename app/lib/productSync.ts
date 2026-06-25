@@ -76,7 +76,7 @@ export async function syncProductsForShop(
 
     // ✅ CREATE NEW JOB
     else {
-      total = await prisma.shopify_products_final_de.count({
+      total = await prisma.shopify_products_final_Germany.count({
         where: {
           sku: { not: null },
           price: { not: null },

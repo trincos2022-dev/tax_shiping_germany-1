@@ -117,7 +117,7 @@ export default function ShippingCalculatorPanel({ defaultCarrierCharge, defaultT
 
         <button
           type="submit"
-          disabled={isLoading || !sku.trim()}
+          disabled={!sku.trim()}
           style={{
             ...buttonStyles,
             opacity: isLoading || !sku.trim() ? 0.6 : 1,

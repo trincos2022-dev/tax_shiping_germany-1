@@ -25,7 +25,7 @@ export async function logRequest(
   error?: string,
   durationMs?: number
 ) {
-  return prisma.requestLog_UK.create({
+  return prisma.requestLog_de.create({
     data: {
       shop,
       type,
@@ -41,7 +41,7 @@ export async function logRequest(
 }
 
 export async function getRecentLogs(shop: string, limit: number = 10) {
-  return prisma.requestLog_UK.findMany({
+  return prisma.requestLog_de.findMany({
     where: { shop },
     orderBy: { createdAt: "desc" },
     take: limit,

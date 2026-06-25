@@ -67,7 +67,7 @@ export async function registerCarrierServiceForShop(
   accessToken: string
 ) {
   const callbackUrl = getAppCallbackUrl();
-  const serviceName = "UK Shipping Calculator";
+  const serviceName = "Germany Shipping Calculator";
 
   const response = await fetch(
     `https://${shop}/admin/api/${apiVersion}/carrier_services.json`,
