@@ -50,7 +50,7 @@ export async function calculateShippingForSku(
   shop: string
 ): Promise<ShippingCalculationResult> {
   try {
-    const settings = await prisma.settings_de.findUnique({
+    const settings = await prisma.Settings_de.findUnique({
       where: { shop },
     });
 

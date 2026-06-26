@@ -126,7 +126,7 @@ model RequestLog_de {
 }
 
 model ShippingCalculationLog_de {
-  id            String   @id @default(cuid()) @db.Uuid
+  id            String   @id @default(cuid())
   shop          String
   sku           String
   basePrice     Float
