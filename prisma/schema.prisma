@@ -2300,7 +2300,7 @@ model vendors_unique {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model RequestLog_de {
-  id           String   @id(map: "requestlog_de_pkey") @default(cuid())
+  id           String   @id(map: "requestlog_de_pkey") @default(dbgenerated("gen_random_uuid()"))
   shop         String
   type         String
   endpoint     String
