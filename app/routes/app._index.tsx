@@ -128,20 +128,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { session } = authResult ?? {};
 
   // Count eligible source products from the source-of-truth table.
-  const productCount = await prisma.shopify_products_final_Germany.count({
-    where: {
-      sku: { not: null },
-      price: { not: null },
-      part_number: { not: null },
-    },
-  });
+  const productCount = await prisma.shopify_products_final_Germany.count();
 
   const productSamples = await prisma.shopify_products_final_Germany.findMany({
-    where: {
-      sku: { not: null },
-      price: { not: null },
-      part_number: { not: null },
-    },
+    
     select: {
       sku: true,
       title: true,
