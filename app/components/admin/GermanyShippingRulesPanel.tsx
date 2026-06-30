@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 interface GermanyShippingRule {
-  id: number | null;
+  id: string | null;
   Min_Weight: number;
   Max_Weight: number;
   Price: number;
@@ -60,6 +60,7 @@ export default function GermanyShippingRulesPanel({
         "/app/api/germany-shipping-rules",
         {
           method: "POST",
+          credentials: "same-origin",
           headers: {
             "Content-Type":
               "application/json",
@@ -71,8 +72,10 @@ export default function GermanyShippingRulesPanel({
       );
 
       if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
         throw new Error(
-          "Failed to save rules",
+          errorData?.error ||
+            "Failed to save rules",
         );
       }
 

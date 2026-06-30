@@ -262,6 +262,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     })
   ).map((rule) => ({
     ...rule,
+    id: rule.id.toString(),
     Min_Weight: Number(rule.Min_Weight),
     Max_Weight: Number(rule.Max_Weight),
     Price: Number(rule.Price),

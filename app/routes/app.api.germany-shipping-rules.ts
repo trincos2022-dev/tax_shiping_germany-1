@@ -12,9 +12,14 @@ export const action = async ({
     return authResult;
   }
 
-  const body = await request.json();
-
-  const rules = body.rules ?? [];
+  const body = await request.json().catch(() => ({}));
+  const rulesRaw = Array.isArray(body.rules) ? body.rules : [];
+  const rules = rulesRaw.map((rule: any) => ({
+    id: rule.id == null ? null : String(rule.id),
+    Min_Weight: rule.Min_Weight,
+    Max_Weight: rule.Max_Weight,
+    Price: rule.Price,
+  }));
 
   try {
     await prisma.$transaction(async (tx) => {
@@ -31,8 +36,8 @@ export const action = async ({
 
       const incomingIds = new Set(
         rules
-          .filter((r: any) => r.id)
-          .map((r: any) => r.id.toString()),
+          .filter((r: any) => r.id != null)
+          .map((r: any) => String(r.id)),
       );
 
       // Delete removed rows
