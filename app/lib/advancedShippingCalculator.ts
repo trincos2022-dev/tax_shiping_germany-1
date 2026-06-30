@@ -156,19 +156,19 @@ export class AdvancedShippingEngineDE {
       });
 
       if (match) {
-        const price = Number(match.price ?? 0);
+        const Price = Number(match.Price ?? 0);
 
         console.log("✅ [MATCH]", {
           weight: weightNum,
-          price,
+          Price,
         });
 
-        return price;
+        return Price;
       }
 
       const lastRule = rules[rules.length - 1];
 
-      const fallbackPrice = Number(lastRule?.price ?? 0);
+      const fallbackPrice = Number(lastRule?.Price ?? 0);
 
       console.log("⚠️ [FALLBACK]", {
         weight: weightNum,
