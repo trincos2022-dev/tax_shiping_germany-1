@@ -142,12 +142,12 @@ export class AdvancedShippingEngineDE {
 
     try {
       const rules = await prisma.shipping_rules_DE.findMany({
-        orderBy: [{ min_weight: "asc" }],
+        orderBy: [{ Min_Weight: "asc" }],
       });
 
       const match = rules.find((rule) => {
-        const min = Number(rule.min_weight ?? 0);
-        const max = Number(rule.max_weight ?? 0);
+        const min = Number(rule.Min_Weight ?? 0);
+        const max = Number(rule.Max_Weight ?? 0);
 
         return (
           weightNum >= min &&

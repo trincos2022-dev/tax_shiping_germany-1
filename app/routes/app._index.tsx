@@ -256,7 +256,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const germanyShippingRules = await prisma.shipping_rules_DE.findMany({
   orderBy: {
-    min_weight: "asc",
+    Min_Weight: "asc",
   },
 });
 

@@ -2,8 +2,8 @@ import React from "react";
 
 interface GermanyShippingRule {
   id: number;
-  min_weight: number;
-  max_weight: number;
+  Min_Weight: number;
+  Max_Weight: number;
   price: number;
 }
 
@@ -89,8 +89,8 @@ export default function GermanyShippingRulesPanel({
         <tbody>
           {rules.map((rule) => (
             <tr key={rule.id}>
-              <td style={cell}>{rule.min_weight}</td>
-              <td style={cell}>{rule.max_weight}</td>
+              <td style={cell}>{rule.Min_Weight}</td>
+              <td style={cell}>{rule.Max_Weight}</td>
               <td style={cell}>€{rule.price.toFixed(2)}</td>
               <td style={cell}>
                 <button style={editButton}>Edit</button>
