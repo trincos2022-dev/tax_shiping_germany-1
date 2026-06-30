@@ -46,7 +46,6 @@ export async function syncProductsForShop(
       if (!total || total === 0) {
         total = await prisma.shopify_products_final_Germany.count({
           where: {
-            sku: { not: null },
             price: { not: null },
             part_number: { not: null },
           },
@@ -77,7 +76,6 @@ export async function syncProductsForShop(
     else {
       total = await prisma.shopify_products_final_Germany.count({
         where: {
-          sku: { not: null },
           price: { not: null },
           part_number: { not: null },
         },
