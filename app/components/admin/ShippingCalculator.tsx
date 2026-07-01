@@ -155,7 +155,7 @@ export default function ShippingCalculatorPanel({ defaultTaxRate }: Props) {
               </div>
               <div style={billRowStyles}>
                 <span style={{ color: "#475569" }}>Carrier Charge</span>
-                <span>£{result.shippingCost?.toFixed(2)}</span>
+                <span>£{result.shippingCharge?.toFixed(2)}</span>
               </div>
               <div style={billTotalStyles}>
                 <span>Total</span>

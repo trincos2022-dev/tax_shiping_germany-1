@@ -50,7 +50,7 @@ export interface ShippingCalculationResult {
   basePrice?: number;
   taxPercentage?: number;
   taxAmount?: number;
-  shippingCost?: number;
+  shippingCharge?: number;
   total?: number;
   error?: string;
 }
