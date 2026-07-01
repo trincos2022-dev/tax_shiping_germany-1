@@ -6,27 +6,7 @@ interface ShippingItem {
   product_type?: string | null;
 }
 
-const SHIPPING_EDGE_CASES = {
-  MAX_PARCEL_WEIGHT: 31.5,
-
-  HEAVY_ITEM_RATES: [
-    {
-      minWeight: 31.5,
-      maxWeight: 50,
-      price: 49.99,
-    },
-    {
-      minWeight: 50,
-      maxWeight: 100,
-      price: 89.99,
-    },
-    {
-      minWeight: 100,
-      maxWeight: 9999,
-      price: 149.99,
-    },
-  ],
-};
+const MAX_PARCEL_WEIGHT = 31.5;
 
 
 function parseSourceType(sourceType?: string | null): string {
@@ -48,7 +28,6 @@ function parseSourceType(sourceType?: string | null): string {
 }
 
 export class AdvancedShippingEngineDE {
-  private readonly MAX_PARCEL_WEIGHT = 31.5;
 
   async calculate(
     items: ShippingItem[],
@@ -76,7 +55,7 @@ export class AdvancedShippingEngineDE {
 
       if (this.isHeavySingleItem(item)) {
         const heavyPrice =
-          this.getHeavyItemRate(itemWeight);
+          await this.getRate(itemWeight);
 
         console.log("🚚 [HEAVY ITEM]", {
           itemWeight,
@@ -135,27 +114,6 @@ export class AdvancedShippingEngineDE {
     return Object.values(groups);
   }
 
-  calculateWeight(items: ShippingItem[]): number {
-    return items.reduce((sum, item) => {
-      const weightVal = Number(item.weight);
-
-      const finalWeight =
-        item.weight != null &&
-        !isNaN(weightVal) &&
-        weightVal > 0
-          ? weightVal
-          : this.getDefaultWeight(item);
-
-      console.log("⚖️ [WEIGHT]", {
-        originalWeight: item.weight,
-        productType: item.product_type,
-        finalWeight,
-      });
-
-      return sum + finalWeight;
-    }, 0);
-  }
-
   getDefaultWeight(item: ShippingItem): number {
     switch (item.product_type) {
       case "Servers":
@@ -172,18 +130,7 @@ export class AdvancedShippingEngineDE {
       ? Number(item.weight)
       : this.getDefaultWeight(item);
 
-  return weight > SHIPPING_EDGE_CASES.MAX_PARCEL_WEIGHT;
-}
-
-getHeavyItemRate(weight: number): number {
-  const match =
-    SHIPPING_EDGE_CASES.HEAVY_ITEM_RATES.find(
-      (rate) =>
-        weight >= rate.minWeight &&
-        weight < rate.maxWeight,
-    );
-
-  return match?.price ?? 149.99;
+  return weight > MAX_PARCEL_WEIGHT;
 }
 
 async calculatePackedShipment(
@@ -191,7 +138,23 @@ async calculatePackedShipment(
 ): Promise<number> {
   const parcels: number[] = [];
 
-  for (const item of items) {
+  const sortedItems = [...items].sort(
+  (a, b) => {
+    const weightA =
+      a.weight != null
+        ? Number(a.weight)
+        : this.getDefaultWeight(a);
+
+    const weightB =
+      b.weight != null
+        ? Number(b.weight)
+        : this.getDefaultWeight(b);
+
+    return weightB - weightA;
+  },
+);
+
+  for (const item of sortedItems) {
     const weight =
       item.weight != null &&
       Number(item.weight) > 0
@@ -203,7 +166,7 @@ async calculatePackedShipment(
     for (let i = 0; i < parcels.length; i++) {
       if (
         parcels[i] + weight <=
-        SHIPPING_EDGE_CASES.MAX_PARCEL_WEIGHT
+        MAX_PARCEL_WEIGHT
       ) {
         parcels[i] += weight;
         packed = true;
@@ -233,31 +196,6 @@ async calculatePackedShipment(
   return totalPrice;
 }
 
-  async calculateShipment(totalWeight: number): Promise<number> {
-    let remainingWeight = totalWeight;
-    let totalPrice = 0;
-
-    while (remainingWeight > 0) {
-      const parcelWeight = Math.min(
-        remainingWeight,
-        this.MAX_PARCEL_WEIGHT,
-      );
-
-      const parcelPrice = await this.getRate(parcelWeight);
-
-      console.log("📦 [PARCEL]", {
-        parcelWeight,
-        parcelPrice,
-      });
-
-      totalPrice += parcelPrice;
-
-      remainingWeight -= parcelWeight;
-    }
-
-    return totalPrice;
-  }
-
   async getRate(weight: number): Promise<number> {
     const weightNum = Number(weight);
 
@@ -272,15 +210,10 @@ async calculatePackedShipment(
         const min = Number(rule.Min_Weight ?? 0);
         const max = Number(rule.Max_Weight ?? 0);
 
+
       return (
         weightNum >= min &&
-        (
-          weightNum < max ||
-          (
-            max === 31.5 &&
-            weightNum === 31.5
-          )
-        )
+        weightNum < max
       );
       });
 
