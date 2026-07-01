@@ -254,27 +254,27 @@ console.log(`SKU: ${item.sku}, Price (Eur): ${priceEur}, Qty: ${item.quantity}, 
     const taxAmount =
       totalPriceEur * (settings.taxPercentage / 100);
 
-    let carrierCharge = 0;
+    let shippingCharge = 0;
 
     if (!allItemsTaxOnly) {
       const shippingEngine = new AdvancedShippingEngineDE();
       console.log("📦 Shipping Items:", shippingItems);
-      carrierCharge = await shippingEngine.calculate(
+      shippingCharge = await shippingEngine.calculate(
         shippingItems,
         requestBody.rate.destination.postal_code,
       );
     }
 
-    const shippingCost =
-      taxAmount + carrierCharge;
+    const totalShippingCharge =
+      taxAmount + shippingCharge;
 
-  console.log("Final calculation:", { totalPriceEur, taxAmount, carrierCharge, shippingCost, allItemsTaxOnly });
+  console.log("Final calculation:", { totalPriceEur, taxAmount, shippingCharge, totalShippingCharge, allItemsTaxOnly });
 
   const response = {
     rates: [{
       service_name: "DE Standard Shipping",
       service_code: "DE_STD",
-      total_price: Math.round(shippingCost * 100).toString(),
+      total_price: Math.round(totalShippingCharge * 100).toString(),
       currency: "EUR",
       description: "Standard delivery within the Germany",
     }],

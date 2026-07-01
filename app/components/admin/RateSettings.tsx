@@ -23,7 +23,7 @@ const fieldGroupStyles: React.CSSProperties = {
 
 const fieldGroupStylesFull: React.CSSProperties = {
   display: "grid",
-  gridTemplateColumns: "1fr 1fr 1fr",
+  gridTemplateColumns: "1fr 1fr",
   gap: 16,
   marginBottom: 16,
 };
@@ -56,15 +56,25 @@ export default function RateSettingsPanel({ settings }: Props) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const form = e.currentTarget;
     const taxRate = (form.elements.namedItem("taxRate") as HTMLInputElement)?.value;
-    const carrierCharge = (form.elements.namedItem("carrierCharge") as HTMLInputElement)?.value;
-    console.log("Form submitting with:", { taxRate, carrierCharge });
+    const carrierCharge =
+      (
+        form.elements.namedItem(
+          "carrierCharge",
+        ) as HTMLInputElement
+      )?.value;
+
+    console.log("Form submitting with:", {
+      taxRate,
+      carrierCharge,
+    });
   };
 
   return (
     <section style={panelStyles}>
       <h2 style={{ marginTop: 0, marginBottom: 10, fontSize: 18 }}>Rate Defaults</h2>
       <p style={{ color: "#475569", lineHeight: 1.5, margin: 0, marginBottom: 16 }}>
-        Update the default tax percentage and fallback carrier charge used for price estimates.
+          Update the default tax percentage and USD to Euro
+          conversion rate used during shipping calculations.
       </p>
 
       <form method="post" onSubmit={handleSubmit}>
@@ -77,20 +87,6 @@ export default function RateSettingsPanel({ settings }: Props) {
               inputMode="decimal"
               min="0"
               defaultValue={settings.taxRate}
-              style={inputStyles}
-              required
-            />
-          </label>
-
-          <label style={fieldStyles}>
-            Default carrier charge (£)
-            <input
-              type="number"
-              name="carrierCharge"
-              inputMode="decimal"
-              min="0"
-              step="0.5"
-              defaultValue={settings.carrierCharge}
               style={inputStyles}
               required
             />
@@ -134,7 +130,6 @@ export default function RateSettingsPanel({ settings }: Props) {
       <div style={{ marginTop: 18, fontSize: 14, color: "#334155" }}>
         <strong>Current values:</strong>
         <div>Tax rate: {settings.taxRate}%</div>
-        <div>Carrier charge: £{settings.carrierCharge}</div>
         <div>USD to Euro rate: {settings.usdToEuroRate}</div>
       </div>
     </section>

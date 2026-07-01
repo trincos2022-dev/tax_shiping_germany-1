@@ -2,7 +2,6 @@ import { useState, type FormEvent } from "react";
 import type { ShippingCalculationResult } from "./types";
 
 interface Props {
-  defaultCarrierCharge: number;
   defaultTaxRate: number;
 }
 
@@ -61,7 +60,7 @@ const billTotalStyles: React.CSSProperties = {
   color: "#0f172a",
 };
 
-export default function ShippingCalculatorPanel({ defaultCarrierCharge, defaultTaxRate }: Props) {
+export default function ShippingCalculatorPanel({ defaultTaxRate }: Props) {
   const [sku, setSku] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<ShippingCalculationResult | null>(null);
@@ -110,7 +109,7 @@ export default function ShippingCalculatorPanel({ defaultCarrierCharge, defaultT
     <section style={panelStyles}>
       <h2 style={{ marginTop: 0, marginBottom: 10, fontSize: 18 }}>Shipping Calculator</h2>
       <p style={{ color: "#475569", lineHeight: 1.5, margin: 0, marginBottom: 16 }}>
-        Enter a product SKU to calculate shipping costs using the configured tax rate and carrier charge.
+        Enter a product SKU to calculate shipping costs using the Germany shipping engine and configured tax rate. 
       </p>
 
       <form onSubmit={handleSubmit}>
@@ -156,7 +155,7 @@ export default function ShippingCalculatorPanel({ defaultCarrierCharge, defaultT
               </div>
               <div style={billRowStyles}>
                 <span style={{ color: "#475569" }}>Carrier Charge</span>
-                <span>£{result.carrierCharge?.toFixed(2)}</span>
+                <span>£{result.shippingCost?.toFixed(2)}</span>
               </div>
               <div style={billTotalStyles}>
                 <span>Total</span>
@@ -179,7 +178,6 @@ export default function ShippingCalculatorPanel({ defaultCarrierCharge, defaultT
       <div style={{ marginTop: 18, fontSize: 14, color: "#334155" }}>
         <strong>Default values:</strong>
         <div>Tax rate: {defaultTaxRate}%</div>
-        <div>Carrier charge: £{defaultCarrierCharge}</div>
       </div>
     </section>
   );

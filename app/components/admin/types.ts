@@ -40,7 +40,6 @@ export interface CarrierServiceInfo {
 
 export interface RateSettings {
   taxRate: number;
-  carrierCharge: number;
   usdToEuroRate: number;
 }
 
@@ -51,7 +50,7 @@ export interface ShippingCalculationResult {
   basePrice?: number;
   taxPercentage?: number;
   taxAmount?: number;
-  carrierCharge?: number;
+  shippingCost?: number;
   total?: number;
   error?: string;
 }

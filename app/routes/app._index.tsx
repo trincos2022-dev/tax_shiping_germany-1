@@ -250,7 +250,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
   const rateSettings: RateSettings = {
     taxRate: settings.taxPercentage,
-    carrierCharge: settings.carrierCharge,
     usdToEuroRate: settings.usdToEuroRate,
   };
 
@@ -432,7 +431,6 @@ export default function Index() {
 
       <div style={{ marginTop: 20 }}>
         <ShippingCalculatorPanel 
-          defaultCarrierCharge={currentRates.carrierCharge} 
           defaultTaxRate={currentRates.taxRate} 
         />
       </div>
