@@ -40,7 +40,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         sku: result.sku || sku.trim(),
         basePrice: result.basePrice || 0,
         taxAmount: result.taxAmount || 0,
-        carrierCharge: result.carrierCharge || 0,
+        shippingCharge: result.shippingCharge || 0,
         total: result.total || 0,
         status: result.success ? "Success" : "Failed",
         error: result.success ? null : (result.error || "Calculation failed"),

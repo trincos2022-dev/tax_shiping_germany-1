@@ -8,7 +8,7 @@ export interface ShippingCalculationResult {
   basePrice?: number;
   taxPercentage?: number;
   taxAmount?: number;
-  carrierCharge?: number;
+  shippingCharge?: number;
   total?: number;
   error?: string;
 }
@@ -117,7 +117,7 @@ if (product && product.price) {
           basePrice: Number(basePrice.toFixed(2)),
           taxPercentage: settings.taxPercentage,
           taxAmount: Number(taxAmount.toFixed(2)),
-          carrierCharge: Number(carrierCharge.toFixed(2)),
+          shippingCharge: Number(carrierCharge.toFixed(2)),
           total: Number(total.toFixed(2)),
         };
       }
@@ -176,7 +176,7 @@ if (product && product.price) {
       basePrice: Number(basePrice.toFixed(2)),
       taxPercentage: settings.taxPercentage,
       taxAmount: Number(taxAmount.toFixed(2)),
-      carrierCharge: Number(carrierCharge.toFixed(2)),
+      shippingCharge: Number(carrierCharge.toFixed(2)),
       total: Number(total.toFixed(2)),
     };
 

@@ -18,7 +18,7 @@ export interface LogRow {
   sku: string;
   basePrice: string;
   tax: string;
-  carrierCharge: string;
+  shippingCharge: string;
   total: string;
   status: "Done" | "Failed" | "Info";
   note: string;
