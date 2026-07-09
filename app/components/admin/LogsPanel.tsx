@@ -102,7 +102,7 @@ export default function LogsPanel({ logs }: Props) {
               <th style={headerCellStyles}>SKU</th>
               <th style={headerCellStyles}>Base</th>
               <th style={headerCellStyles}>Tax</th>
-              <th style={headerCellStyles}>Shipping</th>
+              <th style={headerCellStyles}>Carrier Charge</th>
               <th style={headerCellStyles}>Total</th>
               <th style={headerCellStyles}>Status</th>
               <th style={headerCellStyles}>Details</th>
@@ -116,7 +116,7 @@ export default function LogsPanel({ logs }: Props) {
                 <td style={bodyCellStyles}>{entry.sku}</td>
                 <td style={bodyCellStyles}>£{entry.basePrice}</td>
                 <td style={bodyCellStyles}>£{entry.tax}</td>
-                <td style={bodyCellStyles}>£{entry.shippingCharge}</td>
+                <td style={bodyCellStyles}>£{entry.carrierCharge}</td>
                 <td style={bodyCellStyles}>£{entry.total}</td>
                 <td style={bodyCellStyles}>
                   <span style={statusLabel(entry.status)}>
