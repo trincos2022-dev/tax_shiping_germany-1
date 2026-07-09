@@ -274,7 +274,7 @@ console.log(`SKU: ${item.sku}, Price (Eur): ${priceEur}, Qty: ${item.quantity}, 
 
   const response = {
     rates: [{
-      service_name: "DE Standard Shipping",
+      service_name: "DE Standard Tax & Shipping",
       service_code: "DE_STD",
       total_price: Math.round(totalShippingCharge * 100).toString(),
       currency: "EUR",

@@ -117,7 +117,7 @@ export class AdvancedShippingEngineDE {
   getDefaultWeight(item: ShippingItem): number {
     switch (item.product_type) {
       case "Servers":
-        return 20;
+        return 30;
 
       default:
         return 2;
